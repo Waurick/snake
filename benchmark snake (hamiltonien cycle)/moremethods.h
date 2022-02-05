@@ -24,6 +24,7 @@ SDL_Rect rect;
 extern int close_requested;
 extern SDL_Renderer *rend;
 extern SDL_Window *win;
+int gametime;
 int debug;
 int sizerw;
 int sizerh;
@@ -81,6 +82,7 @@ void rendergrid(void)
 
 void createarr(void)
 {
+  gametime = 1;
   ie=3;
   id=0;
   ig=3;
@@ -109,13 +111,12 @@ void createarr(void)
 void randomfood(int lol)
 {
   while (1) {
-    food[0] = (rand() % 10)+1;
-    food[1] = (rand() % 10)+1;
+    food[0] = (rand() % 20)+1;
+    food[1] = (rand() % 20)+1;
     if (grid[food[0]][food[1]]==0) {
       grid[food[0]][food[1]]=2;
       snake[snakel]=lol;
       snakel++;
-      printf("len:%i\n", snakel);
       break;
     }
   }
@@ -146,14 +147,17 @@ void inputer(void)
             case SDL_SCANCODE_A:
             case SDL_SCANCODE_LEFT:
                 speed++;
+                printf("spped:%i\n", speed);
                 break;
             case SDL_SCANCODE_D:
             case SDL_SCANCODE_RIGHT:
-                if (speed == 0)
+                if (speed < 1)
                 {
+                  printf("spped:%i\n", speed);
                   break;
                 }
                 speed--;
+                printf("spped:%i\n", speed);
                 break;
             default:
                 break;
@@ -172,6 +176,12 @@ int checkend(void)
   }
   else if (grid[head[0]][head[1]]==1) {
     createarr();
+    printf("wtf\n");
+    return 1;
+  }
+  else if (SIZE*SIZE-2==snakel) {
+    createarr();
+    printf("WINNER WINNER CHICKEN DINNER\n");
     return 1;
   }
   else {
@@ -219,9 +229,9 @@ void snaketail(int lul)
 
 void game(void)
 {
-  printf("%i\n", speed);
   if (ic>=speed)
   {
+    ai();
     // Game loop
     switch (ig) {
       case 0:

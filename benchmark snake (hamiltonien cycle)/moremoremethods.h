@@ -5,6 +5,10 @@ SDL_Surface *black;
 SDL_Surface *darkgreen;
 SDL_Surface *red;
 SDL_Renderer *rend;
+#define SIZE (20)
+extern int head[2];
+extern int gametime;
+extern int ie;
 
 void createtile(int sizer)
 {
@@ -36,4 +40,45 @@ SDL_Texture *chooser(int choserr)
 	{
 		return redtex;
 	}
+}
+
+void ai(void)
+{
+	if (gametime < 11)
+	{
+		ie = 3;
+	}
+	else
+	{
+		if (head[1] == 20)
+		{
+			ie = 2;
+			if (head[0] == 1) {
+				ie = 0;
+			}
+		}
+		else
+		{
+			if (head[0]%2==1)
+			{
+				ie = 0;
+				if (head[1]==1)
+				{
+					ie = 3;
+				}
+			}
+			else
+			{
+				ie = 1;
+				if (head[1]==19)
+				{
+					ie = 3;
+					if (head[0]==20) {
+						ie = 1;
+					}
+				}
+			}
+		}
+	}
+	gametime++;
 }
