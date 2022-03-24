@@ -1,11 +1,12 @@
+#define NOMINMAX
 #include <stdio.h>
 #include <stdlib.h>
-#include <SDL.h>
-#include <SDL_timer.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_timer.h>
 
 #include "main.h"
 // lsss
-int main(int argc, char *argv[])
+int WinMain(int argc, char *argv[])
 {
 	initSDL();
 	return 0;
