@@ -4,7 +4,7 @@
 CC := i686-w64-mingw32-gcc
 
 # set the compiler flags
-CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 --std=c99 -Wall -lm
+CFLAGS := -ggdb3 -O0 --std=c99 -Wall -lm -lSDL2
 
 # add header files here
 HDRS :=
